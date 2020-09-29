@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:leaderboards/helper/colorFromHEX.dart';
 
 class HomeScreenCards2 extends StatefulWidget {
   @override
@@ -8,16 +9,11 @@ class HomeScreenCards2 extends StatefulWidget {
 
 class _HomeScreenCards2State extends State<HomeScreenCards2> {
 
-  
-  Color colorFromHEX(String hexColor) {
-  final hexCode = hexColor.replaceAll('#', '');
-  return Color(int.parse('FF$hexCode', radix: 16));
-  }
 
   @override
   Widget build(BuildContext context) {
    return Padding(
-     padding: const EdgeInsets.fromLTRB(10,10,10,10),
+     padding: const EdgeInsets.fromLTRB(10,0,10,10),
      child: Row(
         children: <Widget>[
                Expanded(child: 
@@ -36,7 +32,7 @@ class _HomeScreenCards2State extends State<HomeScreenCards2> {
                 children: <Widget>[
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10,10,10,10),
+                      padding: const EdgeInsets.fromLTRB(20,20,10,10),
                       child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment:CrossAxisAlignment.start,
@@ -60,7 +56,7 @@ class _HomeScreenCards2State extends State<HomeScreenCards2> {
                   crossAxisAlignment:CrossAxisAlignment.end,
                     children: <Widget>[
                  Icon(
-                    Icons.equalizer,
+                    Ionicons.md_trophy,
                     color: Colors.white,
                     size: 70.0,
                   ),
@@ -89,7 +85,7 @@ class _HomeScreenCards2State extends State<HomeScreenCards2> {
                 children: <Widget>[
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10,10,10,10),
+                      padding: const EdgeInsets.fromLTRB(20,20,10,10),
                       child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment:CrossAxisAlignment.start,
