@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
-import 'package:leaderboards/screens/games.dart';
-import 'package:leaderboards/widgets/GamesList.dart';
-import 'package:leaderboards/widgets/homeScreenCards1.dart';
-import 'package:leaderboards/widgets/homeScreenCards2.dart';
+import 'package:leaderboards/screens/home.dart';
 
-class Home extends StatefulWidget {
+class Games extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _GamesState createState() => _GamesState();
 }
 
-class _HomeState extends State<Home> {
+class _GamesState extends State<Games> {
 
-
-  void onBottomNavigationRedirect(int index) {
+    void onBottomNavigationRedirect(int index) {
     switch (index) {
     case 0:
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => Games(),));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),));
       break;
     case 1:
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Games(),));
       break;
     case 2:
       
@@ -31,26 +26,30 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorFromHEX('#F0F3F4'),
-      bottomNavigationBar: BottomNavigationBar(
+      appBar: AppBar(
+            title: Text('Games'),
+          ),
+        bottomNavigationBar: BottomNavigationBar(
         backgroundColor: colorFromHEX('#FDFEFE'),
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+             BottomNavigationBarItem(
             icon: Icon(Icons.home,
             size: 30,
+            color: colorFromHEX('#424949'),
             ),
             title: Text('Home',
              style: TextStyle(
               fontSize: 14,
+                              color: colorFromHEX('#424949'),
+
             )),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Ionicons.logo_game_controller_b , size: 30,  color: colorFromHEX('#424949'),),
+            icon: Icon(Ionicons.logo_game_controller_b , size: 30),
             title: Text('Games',
             style: TextStyle(
               fontSize: 14,
-                color: colorFromHEX('#424949'),
             )),
           ),
           BottomNavigationBarItem(
@@ -78,39 +77,18 @@ class _HomeState extends State<Home> {
 
             )),
           ),
-    
+      
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.school),
           //   title: Text('Buzzer'),
           // ),
         ],
-        currentIndex: 0,
+        currentIndex: 1,
         // selectedItemColor: Colors.amber[800],
         onTap: onBottomNavigationRedirect,
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-          SizedBox(height: 40,),
-          Expanded(flex: 3,child: HomeScreenCards1() ),
-          Expanded(flex: 3, child: HomeScreenCards2() ),
-          SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20,0,0,0),
-            child: Text('Open Games',
-                style: TextStyle(
-                color: colorFromHEX('#424949'),
-                fontSize: 35.0,
-                fontWeight: FontWeight.bold
-                )
-            ),
+          body: Center(child: Text('Games Page'),
           ),
-          Expanded(flex: 5,child: GamesList(),)
-        ],
-        ),
-        )
     );
   }
 }
