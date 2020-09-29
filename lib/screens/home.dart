@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leaderboards/helper/helper.dart';
 import 'package:leaderboards/widgets/homeScreenCards1.dart';
 import 'package:leaderboards/widgets/homeScreenCards2.dart';
 
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            SizedBox(height: 40,),
+          SizedBox(height: 40,),
           Expanded(flex: 1,child: HomeScreenCards1() ),
           Expanded(flex: 1, child: HomeScreenCards2() ),
           Expanded(flex: 2,child: Container(child: null,))
