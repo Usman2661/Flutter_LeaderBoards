@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorFromHEX('#F0F3F4'),
+      backgroundColor: colorFromHEX('#FDFEFE'),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: colorFromHEX('#FDFEFE'),
         type: BottomNavigationBarType.fixed,
@@ -96,14 +96,13 @@ class _HomeState extends State<Home> {
           SizedBox(height: 40,),
           Expanded(flex: 3,child: HomeScreenCards1() ),
           Expanded(flex: 3, child: HomeScreenCards2() ),
-          SizedBox(height: 10,),
           Padding(
             padding: const EdgeInsets.fromLTRB(20,0,0,0),
             child: Text('Open Games',
                 style: TextStyle(
                 color: colorFromHEX('#424949'),
-                fontSize: 35.0,
-                fontWeight: FontWeight.bold
+                fontSize: 25.0,
+                fontWeight: FontWeight.w500
                 )
             ),
           ),

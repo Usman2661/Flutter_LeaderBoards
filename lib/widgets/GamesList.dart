@@ -13,13 +13,13 @@ class _GamesListState extends State<GamesList> {
       padding: const EdgeInsets.fromLTRB(10,0,10,10),
       child: ListView (
         children: <Widget> [
-            Card(
+                    Card(
                 shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(80.0),
+                borderRadius: BorderRadius.circular(20.0),
                 ),
-                color: colorFromHEX('#FFFFFF'),
-                shadowColor: colorFromHEX('#FFFFFF'),
-                elevation: 20.0,
+                color: colorFromHEX('#F4F6F6'),
+                // shadowColor: colorFromHEX('#FFFFFF'),
+                elevation: 2.0,
                 child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {},
@@ -30,55 +30,68 @@ class _GamesListState extends State<GamesList> {
                    child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[ 
-                     SizedBox(width: 10),
-                     CircleAvatar(
+                    Expanded(flex: 1 , child:    CircleAvatar(
                       radius: 40,
-                      backgroundColor: colorFromHEX('#E67E22'),
-                      child: Text('L',
-                        style: TextStyle(
-                    color:Colors.white,
-                    fontSize: 50.0,
-                    fontWeight: FontWeight.bold,
-                      ),
-                      ),
+                      backgroundImage: AssetImage('assets/ludo.png'),
                     ),
-                    SizedBox(width: 20),
-                    Flexible(child:    Column(
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 3,
+                    child: 
+                    Column(
+                    children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                       Flexible(child:    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                  Text(
-                    'Ludo Sibblings',
+                      Text(
+                    'Ludo League',
                     style: TextStyle(
                     color:colorFromHEX('#424949'),
                     fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                       ),
                     ),
                        Text(
-                    'Last Played: 10th Sep',
+                    'Last Played: 17th June',
                     style: TextStyle(
                     color:colorFromHEX('#424949'),
                     fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
+                    // fontWeight: FontWeight.bold,
                       ),
                     ),
                     ],
                     ),
                     ),
-                    SizedBox(width: 10),
-                    Row(children: <Widget>[
-                    Icon(Icons.person,
-                    size: 30,
-                    color:colorFromHEX('#424949'),
-                    ),
-                    Text('3',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                      child: Container(
+                        child: Row(children: <Widget>[
+                                 Text('4',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color:colorFromHEX('#424949'),
+                      )),
+                              Icon(Icons.person,
+                      size: 30,
                       color:colorFromHEX('#424949'),
-                    )),
-
+                      ),
+               
+                        ],
+                        ) 
+                        ,
+                        ),
+                    )
+                
+      
+                        ],
+                        )
                       ],
+                      ),
                       )
                 ],
                 ),
@@ -87,13 +100,15 @@ class _GamesListState extends State<GamesList> {
               ),
               ),
 
-                          Card(
+
+
+                         Card(
                 shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(80.0),
+                borderRadius: BorderRadius.circular(20.0),
                 ),
-                color: colorFromHEX('#FFFFFF'),
-                shadowColor: colorFromHEX('#FFFFFF'),
-                elevation: 20.0,
+                color: colorFromHEX('#F4F6F6'),
+                // shadowColor: colorFromHEX('#FFFFFF'),
+                // elevation: 20.0,
                 child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {},
@@ -104,55 +119,75 @@ class _GamesListState extends State<GamesList> {
                    child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[ 
-                     SizedBox(width: 10),
-                     CircleAvatar(
+                    Expanded(flex: 1 , child:    CircleAvatar(
                       radius: 40,
-                      backgroundColor: colorFromHEX('#E67E22'),
-                      child: Text('L',
+                      backgroundColor: colorFromHEX('#D68910'),
+                      child: Text('A',
                         style: TextStyle(
-                    color:Colors.white,
-                    fontSize: 50.0,
-                    fontWeight: FontWeight.bold,
+                        color:Colors.white,
+                        fontSize: 30.0,
+                    // fontWeight: FontWeight.bold,
                       ),
                       ),
-                    ),
-                    SizedBox(width: 20),
-                    Flexible(child:    Column(
+                      ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 3,
+                    child: 
+                    Column(
+                    children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                       Flexible(child:    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                  Text(
-                    'Playing Cards',
+                      Text(
+                    'Anktaakshari',
                     style: TextStyle(
                     color:colorFromHEX('#424949'),
                     fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                       ),
                     ),
                        Text(
-                    'Last Played: 20th Sep',
+                    'Last Played: 17th June',
                     style: TextStyle(
                     color:colorFromHEX('#424949'),
                     fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
+                    // fontWeight: FontWeight.bold,
                       ),
                     ),
                     ],
                     ),
                     ),
-                    SizedBox(width: 10),
-                    Row(children: <Widget>[
-                    Icon(Icons.person,
-                    size: 30,
-                    color:colorFromHEX('#424949'),
-                    ),
-                    Text('4',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                      child: Container(
+                        child: Row(children: <Widget>[
+                                 Text('7',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color:colorFromHEX('#424949'),
+                      )),
+                              Icon(Icons.person,
+                      size: 30,
                       color:colorFromHEX('#424949'),
-                    )),
-
+                      ),
+              
+                        ],
+                        ) 
+                        ,
+                        ),
+                    )
+                
+      
+                        ],
+                        )
                       ],
+                      ),
                       )
                 ],
                 ),
@@ -161,13 +196,16 @@ class _GamesListState extends State<GamesList> {
               ),
               ),
 
-                          Card(
+
+
+
+                           Card(
                 shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(80.0),
+                borderRadius: BorderRadius.circular(20.0),
                 ),
-                color: colorFromHEX('#FFFFFF'),
-                shadowColor: colorFromHEX('#FFFFFF'),
-                elevation: 20.0,
+                color: colorFromHEX('#F4F6F6'),
+                // shadowColor: colorFromHEX('#FFFFFF'),
+                elevation: 2.0,
                 child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {},
@@ -178,57 +216,68 @@ class _GamesListState extends State<GamesList> {
                    child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[ 
-                     SizedBox(width: 10),
-                     CircleAvatar(
+                    Expanded(flex: 1 , child:    CircleAvatar(
                       radius: 40,
                       backgroundImage: AssetImage('assets/soccer.png'),
-                    //   backgroundColor: colorFromHEX('#E67E22'),
-                    //   child: Text('L',
-                    //     style: TextStyle(
-                    // color:Colors.white,
-                    // fontSize: 50.0,
-                    // fontWeight: FontWeight.bold,
-                    //   ),
-                    //   ),
                     ),
-                    SizedBox(width: 20),
-                    Flexible(child:    Column(
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 3,
+                    child: 
+                    Column(
+                    children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                       Flexible(child:    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                  Text(
+                      Text(
                     'Soccer',
                     style: TextStyle(
                     color:colorFromHEX('#424949'),
                     fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                       ),
                     ),
                        Text(
-                    'Last Played: 27th June',
+                    'Last Played: 17th June',
                     style: TextStyle(
                     color:colorFromHEX('#424949'),
                     fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
+                    // fontWeight: FontWeight.bold,
                       ),
                     ),
                     ],
                     ),
                     ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: <Widget>[
-                    Icon(Icons.person,
-                    size: 30,
-                    color:colorFromHEX('#424949'),
-                    ),
-                    Text('11',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                      child: Container(
+                        child: Row(children: <Widget>[
+                                 Text('11',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color:colorFromHEX('#424949'),
+                      )),
+                              Icon(Icons.person,
+                      size: 30,
                       color:colorFromHEX('#424949'),
-                    )),
-
+                      ),
+               
+                        ],
+                        ) 
+                        ,
+                        ),
+                    )
+                
+      
+                        ],
+                        )
                       ],
+                      ),
                       )
                 ],
                 ),
@@ -236,6 +285,102 @@ class _GamesListState extends State<GamesList> {
                 )
               ),
               ),
+
+
+
+
+
+                           Card(
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: colorFromHEX('#F4F6F6'),
+                // shadowColor: colorFromHEX('#FFFFFF'),
+                elevation: 2.0,
+                child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {},
+                child: 
+                Expanded(child:   
+                 Padding(
+                   padding: const EdgeInsets.fromLTRB(10,10,0,10),
+                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[ 
+                    Expanded(flex: 1 , child:    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage('assets/cards.jpg'),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 3,
+                    child: 
+                    Column(
+                    children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                       Flexible(child:    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                      Text(
+                    'Bluff',
+                    style: TextStyle(
+                    color:colorFromHEX('#424949'),
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                       Text(
+                    'Last Played: 17th June',
+                    style: TextStyle(
+                    color:colorFromHEX('#424949'),
+                    fontSize: 12.0,
+                    // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ],
+                    ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                      child: Container(
+                        child: Row(children: <Widget>[
+                                 Text('4',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color:colorFromHEX('#424949'),
+                      )),
+                              Icon(Icons.person,
+                      size: 30,
+                      color:colorFromHEX('#424949'),
+                      ),
+               
+                        ],
+                        ) 
+                        ,
+                        ),
+                    )
+                
+      
+                        ],
+                        )
+                      ],
+                      ),
+                      )
+                ],
+                ),
+                 )
+                )
+              ),
+              ),
+
+
+
+
+
         ]
        
       ),

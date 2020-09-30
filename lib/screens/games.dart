@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/screens/home.dart';
+import 'package:leaderboards/widgets/GamesList.dart';
 
 class Games extends StatefulWidget {
   @override
@@ -28,6 +29,8 @@ class _GamesState extends State<Games> {
     return Scaffold(
       appBar: AppBar(
             title: Text('Games'),
+            backgroundColor: colorFromHEX('#2471A3'),
+            centerTitle: true,
           ),
         bottomNavigationBar: BottomNavigationBar(
         backgroundColor: colorFromHEX('#FDFEFE'),
@@ -86,9 +89,32 @@ class _GamesState extends State<Games> {
         currentIndex: 1,
         // selectedItemColor: Colors.amber[800],
         onTap: onBottomNavigationRedirect,
-      ),
-          body: Center(child: Text('Games Page'),
-          ),
+        ),
+          body: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex:1,
+                  child:  Container(
+                decoration:  BoxDecoration(
+                  color: colorFromHEX('#2471A3'),
+                  borderRadius: new BorderRadius.only(
+                    bottomLeft:const Radius.circular(40.0),
+                    bottomRight: const Radius.circular(40.0),
+                  )
+                ),
+                    child: null
+                    ) 
+                    ),
+                      Expanded(
+                        flex: 3,
+                  child: GamesList()
+                ), 
+            ],
+            ),
+        ),
     );
   }
 }

@@ -19,11 +19,11 @@ class _HomeScreenCards2State extends State<HomeScreenCards2> {
                Expanded(child: 
         Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-              shadowColor: colorFromHEX('#82E0AA'),
-              elevation: 20.0,
-             color: colorFromHEX('#82E0AA'),
+              // shadowColor: colorFromHEX('#82E0AA'),
+              // elevation: 20.0,
+             color: colorFromHEX('#196F3D'),
               child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
               onTap: () {},
@@ -72,11 +72,11 @@ class _HomeScreenCards2State extends State<HomeScreenCards2> {
      Expanded(child: 
         Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-              shadowColor: colorFromHEX('#EC7063'),
-              elevation: 20.0,
-             color: colorFromHEX('#EC7063'),
+              // shadowColor: colorFromHEX('#EC7063'),
+              // elevation: 20.0,
+             color: colorFromHEX('#C0392B'),
               child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
               onTap: () {},
