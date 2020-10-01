@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/screens/home.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 import 'package:leaderboards/widgets/GamesList.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Games extends StatefulWidget {
   @override
@@ -10,6 +16,48 @@ class Games extends StatefulWidget {
 }
 
 class _GamesState extends State<Games> {
+
+  bool isImage = false;
+  File _image;
+  final picker = ImagePicker();
+  String _imagePath;
+
+  Future getImage() async {
+    final  pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        isImage = true;
+      } else {
+        print('No image selected.');
+      }
+    });
+
+    SharedPreferences saveImage = await SharedPreferences.getInstance();
+    saveImage.setString("imagepath", _image.path);
+
+    print(_image.path);
+
+    _imagePath = saveImage.getString("imagepath");
+    setState((){
+
+    _imagePath = saveImage.getString("imagepath");
+    print(_imagePath);
+    });
+
+  }
+
+  void loadImage() async{
+    SharedPreferences saveImage = await SharedPreferences.getInstance();
+
+    setState((){
+
+    _imagePath = saveImage.getString("imagepath");
+    print(_imagePath);
+    });
+
+  }
 
     void onBottomNavigationRedirect(int index) {
     switch (index) {
@@ -22,16 +70,176 @@ class _GamesState extends State<Games> {
       
       break;
   }
+
+
   }
+
+  @override
+  void initState() {
+    super.initState();
+    loadImage();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorFromHEX('#F2F3F4'),
       appBar: AppBar(
             title: Text('Games'),
             backgroundColor: colorFromHEX('#2471A3'),
             centerTitle: true,
           ),
+           floatingActionButton:SizedBox(
+            width: 70.0,
+            height: 70.0,
+            child:  FloatingActionButton(
+                    onPressed: () {
+            
+                    showDialog(context: context, child:Dialog(
+                    backgroundColor: Colors.transparent,
+                    insetPadding: EdgeInsets.all(10),
+                    child: Stack(
+                      overflow: Overflow.visible,
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height:250,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white
+                          ),
+                          padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+                          child: Container(
+                          child: Column(children: <Widget>[
+                             Row(children: <Widget>[
+                               Expanded( flex: 1, child:   InkWell(
+                              onTap: () async {
+                                await getImage();
+                              },
+                              child: 
+                              _imagePath!=null ? CircleAvatar(
+                                  backgroundImage: FileImage(File(_imagePath)),
+                                  radius: 48.0,
+                                ) :
+                              CircleAvatar(
+                                backgroundColor: Colors.grey[700],
+                                radius: 50.0,
+                                child: CircleAvatar(
+                                  backgroundImage:  _image != null ? FileImage(_image) : null,
+                                  // backgroundColor: Colors.white,
+                                  radius: 48.0,
+                                  // child: Text('Select Image' , 
+                                  // style: TextStyle(fontSize: 14, color: Colors.black , fontWeight: FontWeight.w400)
+                                  // ),
+                                ),
+                              )
+                          ), 
+                          ),
+                          Expanded(flex: 2, 
+                          child:
+                    TextFormField(
+                    autofocus: true,
+                    cursorColor: Colors.black,
+                    cursorWidth: 2.0,
+                    // controller: _usernameController,
+                    validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter game name';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                  
+                  },
+                    style: 
+                    TextStyle(
+                    fontSize: 18.0,
+                    height: 1.5,
+                    color: Colors.grey[700],
+                    ),
+
+                    decoration:  InputDecoration(
+                        focusedBorder:OutlineInputBorder(
+                        borderSide:  BorderSide(color: Colors.grey[700], width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+
+                     enabledBorder:  OutlineInputBorder(
+                     borderSide:  BorderSide(color: Colors.grey[700], width: 2.0),
+                    ),
+                    border:  OutlineInputBorder(
+                    borderRadius:  BorderRadius.all(
+                       Radius.circular(25.0),
+                    ),
+                    ),
+                    filled: true,
+                    hintStyle:  TextStyle(color: Colors.grey[400]),
+                    hintText: "Enter Game Name",
+                    fillColor: Colors.white70
+                    )
+                    ),
+                      )
+                             ],
+                             ),
+                          SizedBox(height: 30),
+                             Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        FlatButton(
+                          onPressed: () {
+                            print ('I am cancelling');
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.w500,
+                            fontSize: 20
+                            ),
+                          ),
+                        ),
+                        RaisedButton(
+                        elevation: 2.0,
+                        color: Colors.blue[900],
+                        onPressed: () async {
+                        },
+                        child:
+                        Row(
+                        children: <Widget>[
+                        Text(
+                          'Create Game',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                            ),    
+                            ],
+                            ),      
+                            padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        ),
+                        ],
+                        ),
+                        ],
+                        ),
+                        )
+                        )
+                      ],
+                    )
+                  ));
+                      
+                      },
+                      child: Icon(Icons.add),
+                      backgroundColor:  colorFromHEX('#2471A3'),
+                    ),
+        ),
         bottomNavigationBar: BottomNavigationBar(
         backgroundColor: colorFromHEX('#FDFEFE'),
         type: BottomNavigationBarType.fixed,

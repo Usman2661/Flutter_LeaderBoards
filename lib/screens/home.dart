@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorFromHEX('#FDFEFE'),
+      backgroundColor: colorFromHEX('#F2F3F4'),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: colorFromHEX('#FDFEFE'),
         type: BottomNavigationBarType.fixed,
