@@ -5,10 +5,11 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/screens/home.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as path;
+// import 'package:path_provider/path_provider.dart';
+// import 'package:path/path.dart' as myPath;
 import 'package:leaderboards/widgets/GamesList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class Games extends StatefulWidget {
   @override
@@ -34,26 +35,52 @@ class _GamesState extends State<Games> {
       }
     });
 
-    SharedPreferences saveImage = await SharedPreferences.getInstance();
-    saveImage.setString("imagepath", _image.path);
+    _cropImage(pickedFile.path);
 
-    print(_image.path);
+    // // Step 3: Get directory where we can duplicate selected file.
+    // Directory appDirectoryPath = await getApplicationDocumentsDirectory();
+    // String appDirPath = appDirectoryPath.path;
+    // print('**************################################*###########################################################################');
+    // print(appDirPath);
+    // // Step 4: Copy the file to a application document directory. 
+    // final String fileName = myPath.basename(pickedFile.path);
+    // print('**************################################*###########################################################################');
+    // print(fileName);
+    // final File localImage = await _image.copy('$appDirPath/$fileName');
 
-    _imagePath = saveImage.getString("imagepath");
-    setState((){
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.setString('test_image', localImage.path);
 
-    _imagePath = saveImage.getString("imagepath");
-    print(_imagePath);
-    });
+    // print('**************################################*###########################################################################');
+    // print(prefs.getString('test_image'));
+
 
   }
 
+   _cropImage(filePath) async {
+
+    File croppedImage = await ImageCropper.cropImage(
+      sourcePath: filePath,
+      maxWidth: 1080,
+      maxHeight: 1080,
+    );
+    if (croppedImage != null) {
+      // imageFile = croppedImage;
+      setState(() {
+        _image = croppedImage;
+      });
+    }
+  }
+
+
+
   void loadImage() async{
-    SharedPreferences saveImage = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState((){
 
-    _imagePath = saveImage.getString("imagepath");
+    _imagePath = prefs.getString('test_image');
+    print('**************################################*###########################################################################');
     print(_imagePath);
     });
 
