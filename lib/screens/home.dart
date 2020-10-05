@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
+import 'package:leaderboards/models/game.dart';
 import 'package:leaderboards/screens/games.dart';
 import 'package:leaderboards/widgets/GamesList.dart';
 import 'package:leaderboards/widgets/homeScreenCards1.dart';
@@ -13,11 +14,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  List<Game> game;
+
 
   void onBottomNavigationRedirect(int index) {
     switch (index) {
     case 0:
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => Games(),));
       break;
     case 1:
       Navigator.push(context, MaterialPageRoute(builder: (context) => Games(),));
@@ -106,7 +108,7 @@ class _HomeState extends State<Home> {
                 )
             ),
           ),
-          Expanded(flex: 5,child: GamesList(),)
+          Expanded(flex: 5,child: GamesList(game),)
         ],
         ),
         )

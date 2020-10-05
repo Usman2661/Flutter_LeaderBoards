@@ -20,14 +20,16 @@ class Games extends StatefulWidget {
 
 class _GamesState extends State<Games> {
 
-  DatabaseHelper _dbHelper;
-
-
+  List<Game> games = [];
   bool isImage = false;
   File _image;
   final picker = ImagePicker();
   String _imagePath;
+  final _gameNameController = TextEditingController();
+  final _createGameFormKey = GlobalKey<FormState>();
 
+
+  DatabaseHelper _dbHelper;
   Future getImage() async {
     final  pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -91,16 +93,20 @@ class _GamesState extends State<Games> {
 
   }
 
-  void createGame() async {
-    
-    Game game = Game();
-    game.gameName='Test';
+  loadGames() async {
+  List<Game> gamesData = await _dbHelper.fetchGames();
 
-    await _dbHelper.createGame(game);
-
-    List<Game> gamesData = await _dbHelper.fetchGames();
+    setState(() {
+      games = gamesData;
+    });
   }
 
+   createGame() async {
+    Game game = Game();
+    game.gameName= _gameNameController.text;
+    await _dbHelper.createGame(game);
+    await loadGames();
+  }
     void onBottomNavigationRedirect(int index) {
     switch (index) {
     case 0:
@@ -118,6 +124,7 @@ class _GamesState extends State<Games> {
     super.initState();
     loadImage();
     _dbHelper = DatabaseHelper.instance;
+    loadGames();
   }
 
 
@@ -139,7 +146,10 @@ class _GamesState extends State<Games> {
                     showDialog(context: context, child:Dialog(
                     backgroundColor: Colors.transparent,
                     insetPadding: EdgeInsets.all(10),
-                    child: Stack(
+                    child: 
+                    Form(
+                      key: _createGameFormKey,
+                      child:Stack(
                       overflow: Overflow.visible,
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -183,7 +193,7 @@ class _GamesState extends State<Games> {
                     autofocus: true,
                     cursorColor: Colors.black,
                     cursorWidth: 2.0,
-                    // controller: _usernameController,
+                    controller: _gameNameController,
                     validator: (value) {
                     if (value.isEmpty) {
                       return 'Please enter game name';
@@ -205,7 +215,6 @@ class _GamesState extends State<Games> {
                         borderSide:  BorderSide(color: Colors.grey[700], width: 2.0),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
-
                      enabledBorder:  OutlineInputBorder(
                      borderSide:  BorderSide(color: Colors.grey[700], width: 2.0),
                     ),
@@ -230,7 +239,6 @@ class _GamesState extends State<Games> {
                       children: <Widget>[
                         FlatButton(
                           onPressed: () {
-                            print ('I am cancelling');
                             Navigator.pop(context);
                           },
                           child: Text(
@@ -246,7 +254,11 @@ class _GamesState extends State<Games> {
                         elevation: 2.0,
                         color: Colors.blue[900],
                         onPressed: () async {
-                          await createGame();
+                        if (_createGameFormKey.currentState.validate()) {
+                                    _createGameFormKey.currentState.save();
+
+                                    await createGame();
+                              }
                         },
                         child:
                         Row(
@@ -273,7 +285,10 @@ class _GamesState extends State<Games> {
                         )
                         )
                       ],
+                    ),
                     )
+                    
+       
                   ));
                       
                       },
@@ -359,7 +374,9 @@ class _GamesState extends State<Games> {
                     ),
                       Expanded(
                         flex: 3,
-                  child: GamesList()
+                child: games.length > 0 ? GamesList(games):
+                new Center(child:
+                new Text('There are no games', style: Theme.of(context).textTheme.title)),
                 ), 
             ],
             ),

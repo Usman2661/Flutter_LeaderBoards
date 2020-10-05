@@ -59,7 +59,7 @@ class DatabaseHelper {
     //contact - retrieve all
     Future<List<Game>> fetchGames() async {
       Database db = await database;
-      List<Map> games = await db.query(Game.tblGames);
+      List<Map> games = await db.rawQuery("SELECT * FROM Games ORDER By id desc");
       return games.length == 0
           ? []
           : games.map((x) => Game.fromMap(x)).toList();
