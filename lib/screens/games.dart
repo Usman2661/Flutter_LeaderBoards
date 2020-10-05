@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:leaderboards/db/datatabase_helper.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
+import 'package:leaderboards/models/game.dart';
 import 'package:leaderboards/screens/home.dart';
 // import 'package:path_provider/path_provider.dart';
 // import 'package:path/path.dart' as myPath;
@@ -17,6 +19,9 @@ class Games extends StatefulWidget {
 }
 
 class _GamesState extends State<Games> {
+
+  DatabaseHelper _dbHelper;
+
 
   bool isImage = false;
   File _image;
@@ -86,6 +91,16 @@ class _GamesState extends State<Games> {
 
   }
 
+  void createGame() async {
+    
+    Game game = Game();
+    game.gameName='Test';
+
+    await _dbHelper.createGame(game);
+
+    List<Game> gamesData = await _dbHelper.fetchGames();
+  }
+
     void onBottomNavigationRedirect(int index) {
     switch (index) {
     case 0:
@@ -94,17 +109,15 @@ class _GamesState extends State<Games> {
     case 1:
       break;
     case 2:
-      
       break;
   }
-
-
   }
 
   @override
   void initState() {
     super.initState();
     loadImage();
+    _dbHelper = DatabaseHelper.instance;
   }
 
 
@@ -233,6 +246,7 @@ class _GamesState extends State<Games> {
                         elevation: 2.0,
                         color: Colors.blue[900],
                         onPressed: () async {
+                          await createGame();
                         },
                         child:
                         Row(
