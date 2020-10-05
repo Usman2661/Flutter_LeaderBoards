@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/models/game.dart';
@@ -25,14 +27,14 @@ class _GamesListState extends State<GamesList> {
                       color: Colors.white,
                       size: 36.0,
                     ),
-                      ),
+                  ),
                   confirmDismiss: (DismissDirection direction) async {
                   return await showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text("Delete Game"),
-                        content:Text('Are you sure you wish to delete ${widget.games[index].gameName}?'),
+                        content:Text('Are you sure you want to delete ${widget.games[index].gameName}?'),
                         actions: <Widget>[
                           FlatButton(
                             onPressed: () async {
@@ -74,7 +76,7 @@ class _GamesListState extends State<GamesList> {
                    children: <Widget>[ 
                    Expanded(flex: 1 , child:    CircleAvatar(
                      radius: 40,
-                     backgroundImage: AssetImage('assets/ludo.png'),
+                     backgroundImage: FileImage(File(widget.games[index].gameAvatar.toString(),)),
                    ),
                  ),
                  SizedBox(width: 10),
@@ -234,7 +236,7 @@ class _GamesListState extends State<GamesList> {
               //   )
               // ),
               // ),
-              
+
               //              Card(
               //   shape: RoundedRectangleBorder(
               //   borderRadius: BorderRadius.circular(20.0),

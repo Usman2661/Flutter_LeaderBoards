@@ -7,10 +7,9 @@ import 'package:leaderboards/db/datatabase_helper.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/models/game.dart';
 import 'package:leaderboards/screens/home.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:path/path.dart' as myPath;
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as myPath;
 import 'package:leaderboards/widgets/GamesList.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class Games extends StatefulWidget {
@@ -20,47 +19,26 @@ class Games extends StatefulWidget {
 
 class _GamesState extends State<Games> {
 
+  // Storing the games
   List<Game> games = [];
-  bool isImage = false;
-  File _image;
-  final picker = ImagePicker();
-  String _imagePath;
+
+  // Form Data
   final _gameNameController = TextEditingController();
   final _createGameFormKey = GlobalKey<FormState>();
 
-
+  // Database
   DatabaseHelper _dbHelper;
+
+
+  //Image
+  File _image;
+  final picker = ImagePicker();
+  String gameAvatar;
+
   Future getImage() async {
+
     final  pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        isImage = true;
-      } else {
-        print('No image selected.');
-      }
-    });
-
     _cropImage(pickedFile.path);
-
-    // // Step 3: Get directory where we can duplicate selected file.
-    // Directory appDirectoryPath = await getApplicationDocumentsDirectory();
-    // String appDirPath = appDirectoryPath.path;
-    // print('**************################################*###########################################################################');
-    // print(appDirPath);
-    // // Step 4: Copy the file to a application document directory. 
-    // final String fileName = myPath.basename(pickedFile.path);
-    // print('**************################################*###########################################################################');
-    // print(fileName);
-    // final File localImage = await _image.copy('$appDirPath/$fileName');
-
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.setString('test_image', localImage.path);
-
-    // print('**************################################*###########################################################################');
-    // print(prefs.getString('test_image'));
-
 
   }
 
@@ -68,30 +46,34 @@ class _GamesState extends State<Games> {
 
     File croppedImage = await ImageCropper.cropImage(
       sourcePath: filePath,
-      maxWidth: 1080,
-      maxHeight: 1080,
+      maxWidth: 870,
+      maxHeight: 800,
     );
+
     if (croppedImage != null) {
       // imageFile = croppedImage;
       setState(() {
         _image = croppedImage;
       });
     }
+
+    // Step 3: Get directory where we can duplicate selected file.
+    Directory appDirectoryPath = await getApplicationDocumentsDirectory();
+    String appDirPath = appDirectoryPath.path;
+
+
+    // Step 4: Copy the file to a application document directory. 
+    final String fileName = myPath.basename(croppedImage.path);
+    final File localImage = await _image.copy('$appDirPath/$fileName');
+
+    setState(() {
+        gameAvatar = localImage.path;
+      });
   }
 
 
 
-  void loadImage() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    setState((){
-
-    _imagePath = prefs.getString('test_image');
-    print('**************################################*###########################################################################');
-    print(_imagePath);
-    });
-
-  }
+ 
 
   loadGames() async {
   List<Game> gamesData = await _dbHelper.fetchGames();
@@ -104,8 +86,10 @@ class _GamesState extends State<Games> {
    createGame() async {
     Game game = Game();
     game.gameName= _gameNameController.text;
+    game.gameAvatar = gameAvatar;
     await _dbHelper.createGame(game);
     await loadGames();
+    _createGameFormKey.currentState.reset();
   }
     void onBottomNavigationRedirect(int index) {
     switch (index) {
@@ -122,7 +106,6 @@ class _GamesState extends State<Games> {
   @override
   void initState() {
     super.initState();
-    loadImage();
     _dbHelper = DatabaseHelper.instance;
     loadGames();
   }
@@ -142,8 +125,10 @@ class _GamesState extends State<Games> {
             height: 70.0,
             child:  FloatingActionButton(
                     onPressed: () {
+
             
-                    showDialog(context: context, child:Dialog(
+                    showDialog(
+                      context: context, child:Dialog(
                     backgroundColor: Colors.transparent,
                     insetPadding: EdgeInsets.all(10),
                     child: 
@@ -165,24 +150,24 @@ class _GamesState extends State<Games> {
                           child: Column(children: <Widget>[
                              Row(children: <Widget>[
                                Expanded( flex: 1, child:   InkWell(
-                              onTap: () async {
-                                await getImage();
-                              },
+                                onTap: () async {
+                                  await getImage();
+                                },
                               child: 
-                              _imagePath!=null ? CircleAvatar(
-                                  backgroundImage: FileImage(File(_imagePath)),
-                                  radius: 48.0,
-                                ) :
+                              // _imagePath!=null ? CircleAvatar(
+                              //     backgroundImage: FileImage(File(_imagePath)),
+                              //     radius: 48.0,
+                              //   ) :
                               CircleAvatar(
                                 backgroundColor: Colors.grey[700],
                                 radius: 50.0,
                                 child: CircleAvatar(
                                   backgroundImage:  _image != null ? FileImage(_image) : null,
-                                  // backgroundColor: Colors.white,
+                                  backgroundColor: Colors.white,
                                   radius: 48.0,
-                                  // child: Text('Select Image' , 
-                                  // style: TextStyle(fontSize: 14, color: Colors.black , fontWeight: FontWeight.w400)
-                                  // ),
+                                  child:  _image != null ? null : Text('Select Image' , 
+                                  style: TextStyle(fontSize: 14, color: Colors.black , fontWeight: FontWeight.w400)
+                                  ),
                                 ),
                               )
                           ), 
@@ -256,8 +241,8 @@ class _GamesState extends State<Games> {
                         onPressed: () async {
                         if (_createGameFormKey.currentState.validate()) {
                                     _createGameFormKey.currentState.save();
-
                                     await createGame();
+                                    Navigator.pop(context);
                               }
                         },
                         child:
