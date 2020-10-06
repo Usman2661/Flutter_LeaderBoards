@@ -1,25 +1,43 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:leaderboards/db/datatabase_helper.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/models/game.dart';
 
 class GamesList extends StatefulWidget {
   @override
   _GamesListState createState() => _GamesListState();
-  final List<Game> games;
-  GamesList(this.games);
 }
 
 class _GamesListState extends State<GamesList> {
+
+  DatabaseHelper _dbHelper;
+
+  List<Game> games = [];
+
+  loadGames() async {
+  List<Game> gamesData = await _dbHelper.fetchGames();
+    setState(() {
+      games = gamesData;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _dbHelper = DatabaseHelper.instance;
+    loadGames();
+  }
   @override
   Widget build(BuildContext context) {
+    // loadGames();
     return ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount:  widget.games == null ? 0 : widget.games.length,
+        itemCount:  games == null ? 0 : games.length,
         itemBuilder: (BuildContext context, int index) {
            return Dismissible(
-                    key: ObjectKey(widget.games[index]),
+                    key: ObjectKey(games[index]),
                     background: Container(
                       color: Colors.red, 
                       child:  Icon(
@@ -34,13 +52,13 @@ class _GamesListState extends State<GamesList> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text("Delete Game"),
-                        content:Text('Are you sure you want to delete ${widget.games[index].gameName}?'),
+                        content:Text('Are you sure you want to delete ${games[index].gameName}?'),
                         actions: <Widget>[
                           FlatButton(
                             onPressed: () async {
-                              // await todoApi.deleteTodo(widget.todos[index].id);
-                              // await widget.onUpdateTodoCallback();
-                              //  Navigator.of(context).pop(true);
+                               await _dbHelper.deleteGame(games[index].id);
+                               await loadGames();
+                               Navigator.of(context).pop(true);
                             },
                             child: const Text("DELETE")
                           ),
@@ -74,10 +92,33 @@ class _GamesListState extends State<GamesList> {
                   child: Row(
                    mainAxisAlignment: MainAxisAlignment.start,
                    children: <Widget>[ 
-                   Expanded(flex: 1 , child:    CircleAvatar(
-                     radius: 40,
-                     backgroundImage: FileImage(File(widget.games[index].gameAvatar.toString(),)),
-                   ),
+                   Expanded(flex: 1 , 
+                     child: games[index].gameAvatar.toString() != '' ?
+                    CircleAvatar(
+                        backgroundColor: Colors.grey[700],
+                        radius: 40.0,
+                        child: CircleAvatar(
+                        backgroundImage: FileImage(File(games[index].gameAvatar.toString(),)),
+                        backgroundColor: Colors.white,
+                        radius: 38.0,
+                        ),
+                    )  
+                    : 
+                    CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 40.0,
+                    child:    CircleAvatar(
+                     radius: 38,
+                     backgroundColor: colorFromHEX('#D68910'),
+                     child: Text(games[index].gameName.toString().toUpperCase().substring(0,1),
+                       style: TextStyle(
+                       color:Colors.white,
+                       fontSize: 30.0,
+                     ),
+                     ),
+                     ),
+                    ) 
+   
                  ),
                  SizedBox(width: 10),
                  Expanded(
@@ -92,7 +133,7 @@ class _GamesListState extends State<GamesList> {
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: <Widget>[
                      Text(
-                   widget.games[index].gameName.toString(),
+                   games[index].gameName.toString(),
                    style: TextStyle(
                    color:colorFromHEX('#424949'),
                    fontSize: 25.0,

@@ -19,8 +19,6 @@ class Games extends StatefulWidget {
 
 class _GamesState extends State<Games> {
 
-  // Storing the games
-  List<Game> games = [];
 
   // Form Data
   final _gameNameController = TextEditingController();
@@ -29,11 +27,10 @@ class _GamesState extends State<Games> {
   // Database
   DatabaseHelper _dbHelper;
 
-
   //Image
   File _image;
   final picker = ImagePicker();
-  String gameAvatar;
+  String gameAvatar = '';
 
   Future getImage() async {
 
@@ -73,22 +70,13 @@ class _GamesState extends State<Games> {
 
 
 
- 
 
-  loadGames() async {
-  List<Game> gamesData = await _dbHelper.fetchGames();
-
-    setState(() {
-      games = gamesData;
-    });
-  }
 
    createGame() async {
     Game game = Game();
     game.gameName= _gameNameController.text;
     game.gameAvatar = gameAvatar;
     await _dbHelper.createGame(game);
-    await loadGames();
     _createGameFormKey.currentState.reset();
   }
     void onBottomNavigationRedirect(int index) {
@@ -107,7 +95,6 @@ class _GamesState extends State<Games> {
   void initState() {
     super.initState();
     _dbHelper = DatabaseHelper.instance;
-    loadGames();
   }
 
 
@@ -125,8 +112,6 @@ class _GamesState extends State<Games> {
             height: 70.0,
             child:  FloatingActionButton(
                     onPressed: () {
-
-            
                     showDialog(
                       context: context, child:Dialog(
                     backgroundColor: Colors.transparent,
@@ -357,11 +342,9 @@ class _GamesState extends State<Games> {
                     child: null
                     ) 
                     ),
-                      Expanded(
+                    Expanded(
                         flex: 3,
-                child: games.length > 0 ? GamesList(games):
-                new Center(child:
-                new Text('There are no games', style: Theme.of(context).textTheme.title)),
+                        child:GamesList()
                 ), 
             ],
             ),

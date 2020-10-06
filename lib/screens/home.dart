@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
                 )
             ),
           ),
-          Expanded(flex: 5,child: GamesList(game),)
+          Expanded(flex: 5,child: GamesList(),)
         ],
         ),
         )
