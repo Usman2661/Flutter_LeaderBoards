@@ -12,7 +12,7 @@ class Game{
   int id;
   String gameName;
   String gameAvatar;
-  bool gameOpenStatus;
+  int gameOpenStatus;
 
 
   Game.fromMap(Map<String, dynamic> map) {

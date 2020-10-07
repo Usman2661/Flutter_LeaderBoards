@@ -32,7 +32,6 @@ class DatabaseHelper {
 
   Future _onCreateDB(Database db, int version) async {
 
-    print('onCreate is running');
    // create tables
     await db.execute('''
       CREATE TABLE IF NOT EXISTS ${Game.tblGames}(

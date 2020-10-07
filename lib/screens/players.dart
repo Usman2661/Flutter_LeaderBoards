@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/screens/games.dart';
 import 'package:leaderboards/screens/home.dart';
+import 'package:leaderboards/widgets/createGamePlayerDialog.dart';
 
 class Players extends StatefulWidget {
   @override
@@ -35,6 +36,13 @@ class _PlayersState extends State<Players> {
       break;
   }
   }
+
+  void onCreatePlayerCallback(){
+
+  }
+  void onCreateGameCallback(){
+
+  }
   @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -49,11 +57,11 @@ class _PlayersState extends State<Players> {
             height: 70.0,
             child:  FloatingActionButton(
                     onPressed: () {
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (_) {
-                    //   return CreateGamePlayerDialog(onCreateGameCallback);
-                    //                         }); 
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                      return CreateGamePlayerDialog(false,onCreateGameCallback, onCreatePlayerCallback);
+                                            }); 
                                             },
                                             child: Icon(Icons.add),
                                             backgroundColor:  colorFromHEX('#F39C12'),

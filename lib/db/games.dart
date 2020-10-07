@@ -13,6 +13,7 @@ class GamesService {
     // game - create
     Future<int> createGame(Game game) async {
       Database db = await dbHelper.database;
+      await checkGameTableUpdated();
       return await db.insert(Game.tblGames, game.toMap());
     }
     //game - update
@@ -35,6 +36,23 @@ class GamesService {
           ? []
           : games.map((x) => Game.fromMap(x)).toList();
     }
+
+
+
+    Future<void> checkGameTableUpdated() async {
+
+      Database db = await dbHelper.database;
+      await db.execute("DROP TABLE IF EXISTS Games");
+
+        await db.execute('''
+          CREATE TABLE IF NOT EXISTS ${Game.tblGames}(
+            ${Game.colId} INTEGER PRIMARY KEY AUTOINCREMENT,
+            ${Game.colGameName} TEXT NOT NULL,
+            ${Game.colGameAvatar} TEXT,
+            ${Game.colGameOpenStatus} INTEGER DEFAULT 1
+            )
+        ''');
+      }
 
   
 }

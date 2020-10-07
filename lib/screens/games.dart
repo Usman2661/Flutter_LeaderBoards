@@ -38,6 +38,8 @@ class _GamesState extends State<Games> {
   onCreateGameCallback() async {
     gamesListKey.currentState.loadGames();
   }
+  onCreatePlayerCallback() async {
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class _GamesState extends State<Games> {
                     showDialog(
                       context: context,
                       builder: (_) {
-                      return CreateGamePlayerDialog(onCreateGameCallback);
+                      return CreateGamePlayerDialog(true,onCreateGameCallback,onCreatePlayerCallback);
                                             }); 
                                             },
                                             child: Icon(Icons.add),

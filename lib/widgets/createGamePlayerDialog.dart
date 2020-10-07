@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:leaderboards/db/games.dart';
+import 'package:leaderboards/db/players.dart';
 import 'package:leaderboards/models/game.dart';
-import 'package:leaderboards/widgets/GamesList.dart';
+import 'package:leaderboards/models/player.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as myPath;
 import 'package:image_cropper/image_cropper.dart';
@@ -12,8 +13,11 @@ import 'package:image_picker/image_picker.dart';
 
 class CreateGamePlayerDialog extends StatefulWidget {
 
+  final Function() onCreatePlayerCallback;
   final Function() onCreateGameCallback;
-  CreateGamePlayerDialog(this.onCreateGameCallback);
+  // True indicate this dialog is for game false means dialog to create new player
+  final bool gameOrPlayer;
+  CreateGamePlayerDialog(this.gameOrPlayer,this.onCreateGameCallback ,this.onCreatePlayerCallback);
 
   @override
   _CreateGamePlayerDialogState createState() => _CreateGamePlayerDialogState();
@@ -22,25 +26,28 @@ class CreateGamePlayerDialog extends StatefulWidget {
 class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
 
   // Form Data
-  final _gameNameController = TextEditingController();
-  final _createGameFormKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _createGameOrPlayerFormKey = GlobalKey<FormState>();
 
-  // Database
+  // Database Services for games and players
   GamesService gamesService;
+  PlayersService playersService;
 
   //Image
   File _image;
   final picker = ImagePicker();
-  String gameAvatar = '';
+  String gameOrPlayerAvatar = '';
 
+  // Get the image from the gallery
   Future getImage() async {
 
     final  pickedFile = await picker.getImage(source: ImageSource.gallery);
-    _cropImage(pickedFile.path);
+    cropImage(pickedFile.path);
 
   }
 
-   _cropImage(filePath) async {
+  // Crop the image
+   cropImage(filePath) async {
 
     File croppedImage = await ImageCropper.cropImage(
       sourcePath: filePath,
@@ -63,24 +70,35 @@ class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
     final File localImage = await _image.copy('$appDirPath/$fileName');
 
     setState(() {
-        gameAvatar = localImage.path;
+        gameOrPlayerAvatar = localImage.path;
       });
   }
 
-
+  // Function to create new game
    createGame() async {
     Game game = Game();
-    game.gameName= _gameNameController.text;
-    game.gameAvatar = gameAvatar;
+    game.gameName= _nameController.text;
+    game.gameAvatar = gameOrPlayerAvatar;
     await gamesService.createGame(game);
     widget.onCreateGameCallback();
-    _createGameFormKey.currentState.reset();
+    _createGameOrPlayerFormKey.currentState.reset();
+  }
+
+  // Function to create new player
+  createPlayer() async {
+    Player player = Player();
+    player.playerName= _nameController.text;
+    player.playerAvatar = gameOrPlayerAvatar;
+    await playersService.createPlayer(player);
+    widget.onCreatePlayerCallback();
+    _createGameOrPlayerFormKey.currentState.reset();
   }
 
   @override
   void initState() {
     super.initState();
     gamesService = GamesService.instance;
+    playersService = PlayersService.instance;
   }
 
 
@@ -91,7 +109,7 @@ class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
                     insetPadding: EdgeInsets.all(10),
                     child: 
                     Form(
-                      key: _createGameFormKey,
+                      key: _createGameOrPlayerFormKey,
                       child:Stack(
                       overflow: Overflow.visible,
                       alignment: Alignment.center,
@@ -132,10 +150,16 @@ class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
                     autofocus: true,
                     cursorColor: Colors.black,
                     cursorWidth: 2.0,
-                    controller: _gameNameController,
+                    controller: _nameController,
                     validator: (value) {
                     if (value.isEmpty) {
+                      if(widget.gameOrPlayer){
                       return 'Please enter game name';
+                      }
+                      else {
+                      return 'Please enter player name';
+                      } 
+                      
                     }
                     return null;
                   },
@@ -164,7 +188,7 @@ class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
                     ),
                     filled: true,
                     hintStyle:  TextStyle(color: Colors.grey[400]),
-                    hintText: "Enter Game Name",
+                    hintText: widget.gameOrPlayer ? "Enter Game Name" : "Enter Player Name",
                     fillColor: Colors.white70
                     )
                     ),
@@ -191,19 +215,28 @@ class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
                         ),
                         RaisedButton(
                         elevation: 2.0,
-                        color: Colors.blue[900],
+                        color: widget.gameOrPlayer ? Colors.blue[900] : Colors.orange,
                         onPressed: () async {
-                        if (_createGameFormKey.currentState.validate()) {
-                                    _createGameFormKey.currentState.save();
+                        if (_createGameOrPlayerFormKey.currentState.validate()) {
+
+                          if(widget.gameOrPlayer){
+                                  _createGameOrPlayerFormKey.currentState.save();
                                     await createGame();
                                     Navigator.pop(context);
+                          }
+                          else {
+                              _createGameOrPlayerFormKey.currentState.save();
+                                    await createPlayer();
+                                    Navigator.pop(context);
+                          }
+                                  
                               }
                         },
                         child:
                         Row(
                         children: <Widget>[
                         Text(
-                          'Create Game',
+                          widget.gameOrPlayer ? 'Create Game' : 'Create Player',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.0,
