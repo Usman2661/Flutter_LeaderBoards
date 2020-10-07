@@ -1,23 +1,29 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:leaderboards/db/datatabase_helper.dart';
+import 'package:leaderboards/db/games.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/models/game.dart';
 
+GlobalKey<_GamesListState> gamesListKey = GlobalKey(debugLabel: 'gamesListKey');
+GlobalKey<_GamesListState> gamesListKeyHome = GlobalKey(debugLabel: 'gamesListKeyHome');
+
 class GamesList extends StatefulWidget {
+
+  GamesList({Key key}) : super(key: key);
+
   @override
   _GamesListState createState() => _GamesListState();
 }
 
 class _GamesListState extends State<GamesList> {
 
-  DatabaseHelper _dbHelper;
+  GamesService gamesService;
 
   List<Game> games = [];
 
-  loadGames() async {
-  List<Game> gamesData = await _dbHelper.fetchGames();
+  loadGames() async {  
+  List<Game> gamesData = await gamesService.fetchGames();
     setState(() {
       games = gamesData;
     });
@@ -26,7 +32,7 @@ class _GamesListState extends State<GamesList> {
   @override
   void initState() {
     super.initState();
-    _dbHelper = DatabaseHelper.instance;
+    gamesService = GamesService.instance;
     loadGames();
   }
   @override
@@ -56,7 +62,7 @@ class _GamesListState extends State<GamesList> {
                         actions: <Widget>[
                           FlatButton(
                             onPressed: () async {
-                               await _dbHelper.deleteGame(games[index].id);
+                               await gamesService.deleteGame(games[index].id);
                                await loadGames();
                                Navigator.of(context).pop(true);
                             },
@@ -183,274 +189,6 @@ class _GamesListState extends State<GamesList> {
                 )
               ),
               ),
-
-
-
-              //            Card(
-              //   shape: RoundedRectangleBorder(
-              //   borderRadius: BorderRadius.circular(20.0),
-              //   ),
-              //   color: colorFromHEX('#FDFEFE'),
-              //   // shadowColor: colorFromHEX('#FFFFFF'),
-              //   // elevation: 20.0,
-              //   child: InkWell(
-              //   splashColor: Colors.blue.withAlpha(30),
-              //   onTap: () {},
-              //   child: 
-              //   Padding(
-              //     padding: const EdgeInsets.fromLTRB(10,10,0,10),
-              //     child: Row(
-              //      mainAxisAlignment: MainAxisAlignment.start,
-              //      children: <Widget>[ 
-              //      Expanded(flex: 1 , child:    CircleAvatar(
-              //        radius: 40,
-              //        backgroundColor: colorFromHEX('#D68910'),
-              //        child: Text('A',
-              //          style: TextStyle(
-              //          color:Colors.white,
-              //          fontSize: 30.0,
-              //      // fontWeight: FontWeight.bold,
-              //        ),
-              //        ),
-              //        ),
-              //    ),
-              //    SizedBox(width: 10),
-              //    Expanded(
-              //      flex: 3,
-              //      child: 
-              //      Column(
-              //      children: <Widget>[
-              //          Row(
-              //            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //            children: <Widget>[
-              //         Flexible(child:    Column(
-              //        crossAxisAlignment: CrossAxisAlignment.start,
-              //        children: <Widget>[
-              //        Text(
-              //      'Anktaakshari',
-              //      style: TextStyle(
-              //      color:colorFromHEX('#424949'),
-              //      fontSize: 25.0,
-              //      fontWeight: FontWeight.w400,
-              //        ),
-              //      ),
-              //         Text(
-              //      'Last Played: 17th June',
-              //      style: TextStyle(
-              //      color:colorFromHEX('#424949'),
-              //      fontSize: 12.0,
-              //      // fontWeight: FontWeight.bold,
-              //        ),
-              //      ),
-              //      ],
-              //      ),
-              //      ),
-              //      Padding(
-              //        padding: const EdgeInsets.fromLTRB(0,0,20,0),
-              //        child: Container(
-              //          child: Row(children: <Widget>[
-              //                   Text('7',
-              //        style: TextStyle(
-              //          fontSize: 20,
-              //          fontWeight: FontWeight.w500,
-              //          color:colorFromHEX('#424949'),
-              //        )),
-              //                Icon(Icons.person,
-              //        size: 30,
-              //        color:colorFromHEX('#424949'),
-              //        ),
-              
-              //          ],
-              //          ) 
-              //          ,
-              //          ),
-              //      )
-                
-      
-              //          ],
-              //          )
-              //        ],
-              //        ),
-              //        )
-              //   ],
-              //   ),
-              //   )
-              // ),
-              // ),
-
-              //              Card(
-              //   shape: RoundedRectangleBorder(
-              //   borderRadius: BorderRadius.circular(20.0),
-              //   ),
-              //   color: colorFromHEX('#FDFEFE'),
-              //   // shadowColor: colorFromHEX('#FFFFFF'),
-              //   elevation: 2.0,
-              //   child: InkWell(
-              //   splashColor: Colors.blue.withAlpha(30),
-              //   onTap: () {},
-              //   child: 
-              //   Padding(
-              //     padding: const EdgeInsets.fromLTRB(10,10,0,10),
-              //     child: Row(
-              //      mainAxisAlignment: MainAxisAlignment.start,
-              //      children: <Widget>[ 
-              //      Expanded(flex: 1 , child:    CircleAvatar(
-              //        radius: 40,
-              //        backgroundImage: AssetImage('assets/soccer.png'),
-              //      ),
-              //    ),
-              //    SizedBox(width: 10),
-              //    Expanded(
-              //      flex: 3,
-              //      child: 
-              //      Column(
-              //      children: <Widget>[
-              //          Row(
-              //            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //            children: <Widget>[
-              //         Flexible(child:    Column(
-              //        crossAxisAlignment: CrossAxisAlignment.start,
-              //        children: <Widget>[
-              //        Text(
-              //      'Soccer',
-              //      style: TextStyle(
-              //      color:colorFromHEX('#424949'),
-              //      fontSize: 25.0,
-              //      fontWeight: FontWeight.w400,
-              //        ),
-              //      ),
-              //         Text(
-              //      'Last Played: 17th June',
-              //      style: TextStyle(
-              //      color:colorFromHEX('#424949'),
-              //      fontSize: 12.0,
-              //      // fontWeight: FontWeight.bold,
-              //        ),
-              //      ),
-              //      ],
-              //      ),
-              //      ),
-              //      Padding(
-              //        padding: const EdgeInsets.fromLTRB(0,0,20,0),
-              //        child: Container(
-              //          child: Row(children: <Widget>[
-              //                   Text('11',
-              //        style: TextStyle(
-              //          fontSize: 20,
-              //          fontWeight: FontWeight.w500,
-              //          color:colorFromHEX('#424949'),
-              //        )),
-              //                Icon(Icons.person,
-              //        size: 30,
-              //        color:colorFromHEX('#424949'),
-              //        ),
-               
-              //          ],
-              //          ) 
-              //          ,
-              //          ),
-              //      )
-                
-      
-              //          ],
-              //          )
-              //        ],
-              //        ),
-              //        )
-              //   ],
-              //   ),
-              //   )
-              // ),
-              // ),
-
-
-
-
-
-              //              Card(
-              //   shape: RoundedRectangleBorder(
-              //   borderRadius: BorderRadius.circular(20.0),
-              //   ),
-              //   color: colorFromHEX('#FDFEFE'),
-              //   // shadowColor: colorFromHEX('#FFFFFF'),
-              //   elevation: 2.0,
-              //   child: InkWell(
-              //   splashColor: Colors.blue.withAlpha(30),
-              //   onTap: () {},
-              //   child: 
-              //   Padding(
-              //     padding: const EdgeInsets.fromLTRB(10,10,0,10),
-              //     child: Row(
-              //      mainAxisAlignment: MainAxisAlignment.start,
-              //      children: <Widget>[ 
-              //      Expanded(flex: 1 , child:    CircleAvatar(
-              //        radius: 40,
-              //        backgroundImage: AssetImage('assets/cards.jpg'),
-              //      ),
-              //    ),
-              //    SizedBox(width: 10),
-              //    Expanded(
-              //      flex: 3,
-              //      child: 
-              //      Column(
-              //      children: <Widget>[
-              //          Row(
-              //            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //            children: <Widget>[
-              //         Flexible(child:    Column(
-              //        crossAxisAlignment: CrossAxisAlignment.start,
-              //        children: <Widget>[
-              //        Text(
-              //      'Bluff',
-              //      style: TextStyle(
-              //      color:colorFromHEX('#424949'),
-              //      fontSize: 25.0,
-              //      fontWeight: FontWeight.w400,
-              //        ),
-              //      ),
-              //         Text(
-              //      'Last Played: 17th June',
-              //      style: TextStyle(
-              //      color:colorFromHEX('#424949'),
-              //      fontSize: 12.0,
-              //      // fontWeight: FontWeight.bold,
-              //        ),
-              //      ),
-              //      ],
-              //      ),
-              //      ),
-              //      Padding(
-              //        padding: const EdgeInsets.fromLTRB(0,0,20,0),
-              //        child: Container(
-              //          child: Row(children: <Widget>[
-              //                   Text('4',
-              //        style: TextStyle(
-              //          fontSize: 20,
-              //          fontWeight: FontWeight.w500,
-              //          color:colorFromHEX('#424949'),
-              //        )),
-              //                Icon(Icons.person,
-              //        size: 30,
-              //        color:colorFromHEX('#424949'),
-              //        ),
-               
-              //          ],
-              //          ) 
-              //          ,
-              //          ),
-              //      )
-                
-      
-              //          ],
-              //          )
-              //        ],
-              //        ),
-              //        )
-              //   ],
-              //   ),
-              //   )
-              // ),
-              // ),
              )  
             );
         }

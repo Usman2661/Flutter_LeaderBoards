@@ -38,32 +38,5 @@ class DatabaseHelper {
         ${Game.colLastPlayed} TEXT
         )
      ''');
-  }
-
-  Future<int> createGame(Game game) async {
-      Database db = await database;
-      return await db.insert(Game.tblGames, game.toMap());
-    }
-    //contact - update
-    Future<int> updateGame(Game game) async {
-      Database db = await database;
-      return await db.update(Game.tblGames, game.toMap(),
-          where: '${Game.colId}=?', whereArgs: [game.id]);
-    }
-    //contact - delete
-    Future<int> deleteGame(int id) async {
-      Database db = await database;
-      return await db.delete(Game.tblGames,
-          where: '${Game.colId}=?', whereArgs: [id]);
-    }
-    //contact - retrieve all
-    Future<List<Game>> fetchGames() async {
-      Database db = await database;
-      List<Map> games = await db.rawQuery("SELECT * FROM Games ORDER By id desc");
-      return games.length == 0
-          ? []
-          : games.map((x) => Game.fromMap(x)).toList();
-    }
-
-  
+  }  
 }

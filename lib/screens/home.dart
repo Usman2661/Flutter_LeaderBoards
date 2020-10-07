@@ -22,10 +22,13 @@ class _HomeState extends State<Home> {
     case 0:
       break;
     case 1:
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Games(),));
+      Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Games()),
+                  ModalRoute.withName('/'),
+                );
       break;
     case 2:
-      
       break;
   }
   }
@@ -80,7 +83,6 @@ class _HomeState extends State<Home> {
 
             )),
           ),
-    
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.school),
           //   title: Text('Buzzer'),
@@ -108,7 +110,7 @@ class _HomeState extends State<Home> {
                 )
             ),
           ),
-          Expanded(flex: 5,child: GamesList(),)
+          Expanded(flex: 5, child:GamesList(key: gamesListKeyHome),)
         ],
         ),
         )
