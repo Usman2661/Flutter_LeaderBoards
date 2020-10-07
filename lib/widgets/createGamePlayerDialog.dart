@@ -44,8 +44,6 @@ class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
 
     File croppedImage = await ImageCropper.cropImage(
       sourcePath: filePath,
-      maxWidth: 800,
-      maxHeight: 800,
     );
 
     if (croppedImage != null) {
@@ -76,7 +74,6 @@ class _CreateGamePlayerDialogState extends State<CreateGamePlayerDialog> {
     game.gameAvatar = gameAvatar;
     await gamesService.createGame(game);
     widget.onCreateGameCallback();
-    
     _createGameFormKey.currentState.reset();
   }
 

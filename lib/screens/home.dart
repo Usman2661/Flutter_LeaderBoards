@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/models/game.dart';
 import 'package:leaderboards/screens/games.dart';
+import 'package:leaderboards/screens/players.dart';
 import 'package:leaderboards/widgets/GamesList.dart';
 import 'package:leaderboards/widgets/homeScreenCards1.dart';
 import 'package:leaderboards/widgets/homeScreenCards2.dart';
@@ -25,10 +26,17 @@ class _HomeState extends State<Home> {
       Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => Games()),
-                  ModalRoute.withName('/'),
+                  ModalRoute.withName('/games'),
                 );
       break;
     case 2:
+     Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Players()),
+                  ModalRoute.withName('/players'),
+                );
+      break;
+    case 3:
       break;
   }
   }

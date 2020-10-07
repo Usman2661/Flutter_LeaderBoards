@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/screens/home.dart';
+import 'package:leaderboards/screens/players.dart';
 import 'package:leaderboards/widgets/createGamePlayerDialog.dart';
 import 'package:leaderboards/widgets/GamesList.dart';
-
-GlobalKey<_GamesState> gamesKey = GlobalKey(debugLabel: 'gamesKey');
 
 class Games extends StatefulWidget {
   @override
@@ -27,6 +26,11 @@ class _GamesState extends State<Games> {
     case 1:
       break;
     case 2:
+       Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Players()),
+                  ModalRoute.withName('/players'),
+                );
       break;
   }
   }

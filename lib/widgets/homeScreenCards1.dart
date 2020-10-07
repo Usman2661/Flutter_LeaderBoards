@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:leaderboards/helper/colorFromHEX.dart';
+import 'package:leaderboards/screens/games.dart';
+import 'package:leaderboards/screens/players.dart';
 
 class HomeScreenCards1 extends StatefulWidget {
   @override
@@ -26,7 +28,13 @@ class _HomeScreenCards1State extends State<HomeScreenCards1> {
              color: colorFromHEX('#2471A3'),
               child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
-              onTap: () {},
+              onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Games()),
+                  ModalRoute.withName('/games'),
+                );
+              },
               child: 
               Column(
                 children: <Widget>[
@@ -79,7 +87,13 @@ class _HomeScreenCards1State extends State<HomeScreenCards1> {
              color: colorFromHEX('#F39C12'),
               child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
-              onTap: () {},
+              onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Players()),
+                  ModalRoute.withName('/players'),
+                );
+              },
               child: 
               Column(
                 children: <Widget>[

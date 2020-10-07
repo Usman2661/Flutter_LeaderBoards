@@ -4,26 +4,26 @@ class Game{
   static const colId = 'id';
   static const colGameName = 'gameName';
   static const colGameAvatar = 'gameAvatar';
-  static const colLastPlayed = 'lastPlayed';
+  static const colGameOpenStatus = 'gameOpenStatus';
 
 
-  Game({this.id,this.gameName,this.gameAvatar, this.lastPlayed});
+  Game({this.id,this.gameName,this.gameAvatar, this.gameOpenStatus});
 
   int id;
   String gameName;
   String gameAvatar;
-  String lastPlayed;
+  bool gameOpenStatus;
 
 
   Game.fromMap(Map<String, dynamic> map) {
     id = map[colId];
     gameName = map[colGameName];
     gameAvatar = map[colGameAvatar];
-    lastPlayed = map[colLastPlayed];
+    gameOpenStatus = map[colGameOpenStatus];
   }
 
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{colGameName: gameName, colGameAvatar: gameAvatar , colLastPlayed: lastPlayed};
+    var map = <String, dynamic>{colGameName: gameName, colGameAvatar: gameAvatar , colGameOpenStatus:gameOpenStatus};
     if (id != null) {
       map[colId] = id;
     }

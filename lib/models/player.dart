@@ -2,8 +2,8 @@ class Player{
 
   static const tblPlayers = 'Players';
   static const colId = 'id';
-  static const colPlayerName = 'gameName';
-  static const colPlayerAvatar = 'gameAvatar';
+  static const colPlayerName = 'playerName';
+  static const colPlayerAvatar = 'playerAvatar';
 
 
   Player({this.id,this.playerName,this.playerAvatar});

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:leaderboards/models/game.dart';
+import 'package:leaderboards/models/player.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -27,15 +28,26 @@ class DatabaseHelper {
     return await openDatabase(dbPath,
         version: _databaseVersion, onCreate: _onCreateDB);
   }
+  
 
   Future _onCreateDB(Database db, int version) async {
-    //create tables
+
+    print('onCreate is running');
+   // create tables
     await db.execute('''
       CREATE TABLE IF NOT EXISTS ${Game.tblGames}(
         ${Game.colId} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${Game.colGameName} TEXT NOT NULL,
         ${Game.colGameAvatar} TEXT,
-        ${Game.colLastPlayed} TEXT
+        ${Game.colGameOpenStatus} INTEGER DEFAULT 1
+        )
+     ''');
+
+     await db.execute('''
+      CREATE TABLE IF NOT EXISTS ${Player.tblPlayers}(
+        ${Player.colId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${Player.colPlayerName} TEXT NOT NULL,
+        ${Player.colPlayerAvatar} TEXT
         )
      ''');
   }  
