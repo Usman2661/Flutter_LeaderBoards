@@ -71,50 +71,56 @@ class _GamesState extends State<Games> {
                               backgroundColor: colorFromHEX('#FDFEFE'),
                               type: BottomNavigationBarType.fixed,
                               items: <BottomNavigationBarItem>[
-                                   BottomNavigationBarItem(
-                                  icon: Icon(Icons.home,
-                                  size: 30,
-                                  color: colorFromHEX('#424949'),
-                                  ),
-                                  title: Text('Home',
-                                   style: TextStyle(
-                                    fontSize: 14,
-                                                    color: colorFromHEX('#424949'),
-                      
-                                  )),
+                                 BottomNavigationBarItem(
+                              icon: Icon(Icons.home,
+                              size: 35,
+                              color: colorFromHEX('#626567'),
+                              ),
+                              title: Text('Home',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: colorFromHEX('#626567'),
+                              )),
+                            ),
+                            BottomNavigationBarItem(
+                              icon: Icon(Ionicons.logo_game_controller_b ,
+                              size: 35, 
+                              color: colorFromHEX('#17202A'),),
+                              title: Text('Games',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                  color: colorFromHEX('#17202A'),
+                              )),
+                            ),
+                            BottomNavigationBarItem(
+                              icon: Icon(
+                                Icons.people,
+                                size: 35,
+                                color: colorFromHEX('#626567'),
                                 ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(Ionicons.logo_game_controller_b , size: 30),
-                                  title: Text('Games',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  )),
-                                ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Icons.people,
-                                    size: 30,
-                                    color: colorFromHEX('#424949'),
-                                    ),
-                                  title: Text('Players' ,
-                                   style: TextStyle(
-                                    fontSize: 14,
-                                    color: colorFromHEX('#424949'),
-                                  )),
-                                ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Ionicons.md_trophy,
-                                   size: 30,
-                                  color: colorFromHEX('#424949'),
-                                   ),
-                                  title: Text('Winners',
-                                   style: TextStyle(
-                                    fontSize: 14,
-                                    color: colorFromHEX('#424949'),
-                      
-                                  )),
-                                ),
+                              title: Text('Players' ,
+                              style: TextStyle(
+                                    fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                  color: colorFromHEX('#626567'),
+                              )),
+                            ),
+                            BottomNavigationBarItem(
+                              icon: Icon(
+                                Ionicons.md_trophy,
+                              size: 35,
+                              color: colorFromHEX('#424949'),
+                              ),
+                              title: Text('Winners',
+                              style: TextStyle(
+                              fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                  color: colorFromHEX('#626567'),
+
+                              )),
+                            ),
                               ],
                               currentIndex: 1,
                               onTap: onBottomNavigationRedirect,

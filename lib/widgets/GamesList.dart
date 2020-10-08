@@ -35,9 +35,9 @@ class _GamesListState extends State<GamesList> {
     gamesService = GamesService.instance;
     loadGames();
   }
+
   @override
   Widget build(BuildContext context) {
-    // loadGames();
     return ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount:  games == null ? 0 : games.length,
@@ -78,11 +78,11 @@ class _GamesListState extends State<GamesList> {
                   );
                 },
                   
-                    child:
+            child:
              Padding(
-      padding: const EdgeInsets.fromLTRB(10,0,10,10),
-      child: 
-                    Card(
+              padding: const EdgeInsets.fromLTRB(10,0,10,10),
+              child: 
+              Card(
                 shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -161,16 +161,17 @@ class _GamesListState extends State<GamesList> {
                      padding: const EdgeInsets.fromLTRB(0,0,20,0),
                      child: Container(
                        child: Row(children: <Widget>[
-                                Text('4',
+               
+                             Icon(Icons.person,
+                     size: 30,
+                     color:colorFromHEX('#424949'),
+                     ),
+                                      Text('4',
                      style: TextStyle(
                        fontSize: 20,
                        fontWeight: FontWeight.w500,
                        color:colorFromHEX('#424949'),
                      )),
-                             Icon(Icons.person,
-                     size: 30,
-                     color:colorFromHEX('#424949'),
-                     ),
                
                        ],
                        ) 

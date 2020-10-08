@@ -42,7 +42,6 @@ class GamesService {
     Future<void> checkGameTableUpdated() async {
 
       Database db = await dbHelper.database;
-      await db.execute("DROP TABLE IF EXISTS Games");
 
         await db.execute('''
           CREATE TABLE IF NOT EXISTS ${Game.tblGames}(

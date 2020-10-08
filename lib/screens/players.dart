@@ -4,6 +4,7 @@ import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/screens/games.dart';
 import 'package:leaderboards/screens/home.dart';
 import 'package:leaderboards/widgets/createGamePlayerDialog.dart';
+import 'package:leaderboards/widgets/playersGrid.dart';
 
 class Players extends StatefulWidget {
   @override
@@ -38,7 +39,7 @@ class _PlayersState extends State<Players> {
   }
 
   void onCreatePlayerCallback(){
-
+     playersGridKey.currentState.loadPlayers();
   }
   void onCreateGameCallback(){
 
@@ -68,53 +69,59 @@ class _PlayersState extends State<Players> {
                         ),
                   ),
                               bottomNavigationBar: BottomNavigationBar(
-                              backgroundColor: colorFromHEX('#FDFEFE'),
+                              backgroundColor: colorFromHEX('#F2F3F4'),
                               type: BottomNavigationBarType.fixed,
                               items: <BottomNavigationBarItem>[
-                                   BottomNavigationBarItem(
-                                  icon: Icon(Icons.home,
-                                  size: 30,
-                                  color: colorFromHEX('#424949'),
-                                  ),
-                                  title: Text('Home',
-                                   style: TextStyle(
-                                    fontSize: 14,
-                                                    color: colorFromHEX('#424949'),
-                      
-                                  )),
+                              BottomNavigationBarItem(
+                              icon: Icon(Icons.home,
+                              size: 35,
+                              color: colorFromHEX('#626567'),
+                              ),
+                              title: Text('Home',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: colorFromHEX('#626567'),
+                              )),
+                            ),
+                            BottomNavigationBarItem(
+                              icon: Icon(Ionicons.logo_game_controller_b ,
+                              size: 35, 
+                              color: colorFromHEX('#626567'),),
+                              title: Text('Games',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                  color: colorFromHEX('#626567'),
+                              )),
+                            ),
+                            BottomNavigationBarItem(
+                              icon: Icon(
+                                Icons.people,
+                                size: 35,
+                                color: colorFromHEX('#17202A'),
                                 ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(Ionicons.logo_game_controller_b , size: 30,  color: colorFromHEX('#424949'),),
-                                  title: Text('Games',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                      color: colorFromHEX('#424949'),
-                                  )),
-                                ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Icons.people,
-                                    size: 30,
-                                    // color: colorFromHEX('#424949'),
-                                    ),
-                                  title: Text('Players' ,
-                                   style: TextStyle(
-                                    fontSize: 14,
-                                    // color: colorFromHEX('#424949'),
-                                  )),
-                                ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Ionicons.md_trophy,
-                                   size: 30,
-                                  color: colorFromHEX('#424949'),
-                                   ),
-                                  title: Text('Winners',
-                                   style: TextStyle(
-                                    fontSize: 14,
-                                    color: colorFromHEX('#424949'),
-                                  )),
-                                ),
+                              title: Text('Players' ,
+                              style: TextStyle(
+                                    fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                  color: colorFromHEX('#17202A'),
+                              )),
+                            ),
+                            BottomNavigationBarItem(
+                              icon: Icon(
+                                Ionicons.md_trophy,
+                              size: 35,
+                              color: colorFromHEX('#424949'),
+                              ),
+                              title: Text('Winners',
+                              style: TextStyle(
+                              fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                  color: colorFromHEX('#626567'),
+
+                              )),
+                            ),
                               ],
                               currentIndex: 2,
                               onTap: onBottomNavigationRedirect,
@@ -139,7 +146,7 @@ class _PlayersState extends State<Players> {
                                           ),
                                           Expanded(
                                               flex: 3,
-                                              child:Container(child: null),
+                                              child:PlayersGrid(key: playersGridKey)
                                       ), 
                                   ],
                                   ),
