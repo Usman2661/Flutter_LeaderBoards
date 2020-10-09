@@ -68,7 +68,7 @@ class _GamesState extends State<Games> {
                                           ),
                               ),
                               bottomNavigationBar: BottomNavigationBar(
-                              backgroundColor: colorFromHEX('#FDFEFE'),
+                              backgroundColor: colorFromHEX('#F2F3F4'),
                               type: BottomNavigationBarType.fixed,
                               items: <BottomNavigationBarItem>[
                                  BottomNavigationBarItem(

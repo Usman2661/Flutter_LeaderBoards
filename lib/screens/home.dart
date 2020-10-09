@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: colorFromHEX('#F2F3F4'),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: colorFromHEX('#FDFEFE'),
+        backgroundColor: colorFromHEX('#F2F3F4'),
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

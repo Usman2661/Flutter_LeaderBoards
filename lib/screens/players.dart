@@ -39,7 +39,7 @@ class _PlayersState extends State<Players> {
   }
 
   void onCreatePlayerCallback(){
-     playersGridKey.currentState.loadPlayers();
+      playersGridKey.currentState.loadPlayers();
   }
   void onCreateGameCallback(){
 
@@ -47,10 +47,10 @@ class _PlayersState extends State<Players> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
-      backgroundColor: colorFromHEX('#F2F3F4'),
+      backgroundColor: colorFromHEX('#FDFEFE'),
       appBar: AppBar(
             title: Text('Players'),
-            backgroundColor: colorFromHEX('#F39C12'),
+            backgroundColor: colorFromHEX('#7D3C98'),
             centerTitle: true,
           ),
            floatingActionButton:SizedBox(
@@ -65,11 +65,11 @@ class _PlayersState extends State<Players> {
                                             }); 
                                             },
                                             child: Icon(Icons.add),
-                                            backgroundColor:  colorFromHEX('#F39C12'),
+                                            backgroundColor:  colorFromHEX('#7D3C98'),
                         ),
                   ),
                               bottomNavigationBar: BottomNavigationBar(
-                              backgroundColor: colorFromHEX('#F2F3F4'),
+                              backgroundColor: colorFromHEX('#FDFEFE'),
                               type: BottomNavigationBarType.fixed,
                               items: <BottomNavigationBarItem>[
                               BottomNavigationBarItem(
@@ -135,15 +135,16 @@ class _PlayersState extends State<Players> {
                                         flex:1,
                                         child:  Container(
                                       decoration:  BoxDecoration(
-                                        color: colorFromHEX('#F39C12'),
+                                        color: colorFromHEX('#EAEDED'),
                                         borderRadius: new BorderRadius.only(
-                                          bottomLeft:const Radius.circular(40.0),
-                                          bottomRight: const Radius.circular(40.0),
+                                          bottomLeft:const Radius.circular(0.0),
+                                          bottomRight: const Radius.circular(0.0),
                                         )
                                       ),
                                           child: null
                                           ) 
                                           ),
+                                          SizedBox(height: 10),
                                           Expanded(
                                               flex: 3,
                                               child:PlayersGrid(key: playersGridKey)

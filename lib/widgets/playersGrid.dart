@@ -43,22 +43,23 @@ class _PlayersGridState extends State<PlayersGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount:  players == null ? 0 : players.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(10,0,10,10),
-            child: Container(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10,0,10,10),
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
+          scrollDirection: Axis.vertical,
+          itemCount:  players == null ? 0 : players.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
               height: 170,
               child:
-             Row(children: <Widget>[
-              Expanded(flex: 1 , child:  Card(
+              Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                // shadowColor: colorFromHEX('#85C1E9'),
-                // elevation: 20.0,
+                shadowColor: colorFromHEX('#FDFEFE'),
+                elevation: 20.0,
                color: colorFromHEX('#FDFEFE'),
                 child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
@@ -69,7 +70,7 @@ class _PlayersGridState extends State<PlayersGrid> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Row(
+                    Expanded(flex: 1, child:  Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                     PopupMenuButton<PlayerOptions>(
@@ -97,7 +98,7 @@ class _PlayersGridState extends State<PlayersGrid> {
                         ],
                       );
                     },
-                  );
+                    );
 
                       }
                       else {
@@ -118,7 +119,13 @@ class _PlayersGridState extends State<PlayersGrid> {
                 ),
                     ],
                     ),
-                  Container(child: players[index].playerAvatar.toString() != '' ?
+                    ),
+
+                    Expanded(flex: 4,child:  Container(
+                    child: 
+                    Column(children: <Widget>[
+                      Container(child: 
+                         players[index].playerAvatar.toString() != '' ?
                     CircleAvatar(
                         backgroundColor: Colors.grey[700],
                         radius: 40.0,
@@ -134,7 +141,7 @@ class _PlayersGridState extends State<PlayersGrid> {
                     radius: 40.0,
                     child:CircleAvatar(
                      radius: 38,
-                     backgroundColor: colorFromHEX('#D68910'),
+                     backgroundColor: colorFromHEX('#7D3C98'),
                      child: Text(players[index].playerName.toString().toUpperCase().substring(0,1),
                        style: TextStyle(
                        color:Colors.white,
@@ -144,83 +151,75 @@ class _PlayersGridState extends State<PlayersGrid> {
                      ),
                     ),
                     ),
-                    Text(players[index].playerName.toString(),
+                      Text(players[index].playerName.toString(),
                        style: TextStyle(
                        color:Colors.black,
                        fontSize: 24.0,
                        fontWeight: FontWeight.w500,
                      )),
-                  Container(
-                    color: Colors.red,
-                    width: double.infinity,
-                    // height: double.infinity,
-                    child: Row(children: <Widget>[
-
-                    ]),
-                  )                  ],
-                ),
-                ),
-                ),
-                ),
-                Expanded(flex: 1 , child:  Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                // shadowColor: colorFromHEX('#85C1E9'),
-                // elevation: 20.0,
-               color: colorFromHEX('#FDFEFE'),
-                child: InkWell(
-                splashColor: Colors.blue.withAlpha(30),
-                onTap: () {
-                
-                },
-                child: 
-                Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20,20,10,10),
-                        child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment:CrossAxisAlignment.start,
-                    children: <Widget>[
-                    Text('Games',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold
-                        )
-                        )
-                  ],
-                  ),
-                      ),
-                    ),
-                  Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20,0,10,10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment:CrossAxisAlignment.end,
-                      children: <Widget>[
-                   Icon(
-                      Ionicons.logo_game_controller_b,
-                      color: Colors.white,
-                      size: 70.0,
-                    ),
                     ],
+                    )
                     ),
-                  ),
-                  ),    
+                    ),
+                     Expanded(
+                       flex: 1,
+                       child: Container(
+                        decoration:  BoxDecoration(
+                            color: colorFromHEX('#7D3C98'),
+                              borderRadius: new BorderRadius.only(
+                              bottomLeft:const Radius.circular(15.0),
+                              bottomRight: const Radius.circular(15.0),
+                            ),
+                            ),
+                         child:Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: <Widget>[
+                           Container(
+                             child: Row(children: <Widget>[
+                            Icon(Ionicons.logo_game_controller_b ,
+                            size: 30,
+                            color:colorFromHEX('#FDFEFE'),
+                            ),
+                          Text('8',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color:colorFromHEX('#FDFEFE'),
+                          )),
+                           ],
+                           ),
+                           ),
+                           SizedBox(width: 20),
+                            Container(
+                             child: Row(children: <Widget>[
+                            Icon(Ionicons.md_trophy,     
+                            size: 30,
+                            color:colorFromHEX('#FDFEFE'),
+                            ),
+                          Text('2',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color:colorFromHEX('#FDFEFE'),
+                          )),
+               
+                           ],
+                           ),
+                           )
+                     ],
+                     ),
+                     )
+                     )
+
                   ],
                 ),
                 ),
                 ),
-                ),   
-            ]
-            )
-            ),
-          );
-        }
-        );
+
+       
+            );
+          }
+          ),
+    );
   }
 }
