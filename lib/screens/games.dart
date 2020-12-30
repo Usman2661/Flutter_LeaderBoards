@@ -46,10 +46,10 @@ class _GamesState extends State<Games> {
 
  
     return Scaffold(
-      backgroundColor: colorFromHEX('#F2F3F4'),
+      backgroundColor: colorFromHEX('#FDFEFE'),
       appBar: AppBar(
             title: Text('Games'),
-            backgroundColor: colorFromHEX('#2471A3'),
+            backgroundColor: colorFromHEX('#2874A6'),
             centerTitle: true,
           ),
            floatingActionButton:SizedBox(
@@ -68,7 +68,7 @@ class _GamesState extends State<Games> {
                                           ),
                               ),
                               bottomNavigationBar: BottomNavigationBar(
-                              backgroundColor: colorFromHEX('#F2F3F4'),
+                              backgroundColor: colorFromHEX('#FDFEFE'),
                               type: BottomNavigationBarType.fixed,
                               items: <BottomNavigationBarItem>[
                                  BottomNavigationBarItem(
@@ -134,10 +134,10 @@ class _GamesState extends State<Games> {
                                         flex:1,
                                         child:  Container(
                                       decoration:  BoxDecoration(
-                                        color: colorFromHEX('#2471A3'),
+                                          color: colorFromHEX('#EAEDED'),
                                         borderRadius: new BorderRadius.only(
-                                          bottomLeft:const Radius.circular(40.0),
-                                          bottomRight: const Radius.circular(40.0),
+                                          bottomLeft:const Radius.circular(0.0),
+                                          bottomRight: const Radius.circular(0.0),
                                         )
                                       ),
                                           child: null

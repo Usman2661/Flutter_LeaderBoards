@@ -21,11 +21,11 @@ class _HomeScreenCards1State extends State<HomeScreenCards1> {
         Expanded(child: 
         Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
-              // shadowColor: colorFromHEX('#85C1E9'),
-              // elevation: 20.0,
-             color: colorFromHEX('#2471A3'),
+              shadowColor: colorFromHEX('#FDFEFE'),
+              elevation: 10.0,
+             color: colorFromHEX('#FDFEFE'),
               child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
               onTap: () {
@@ -45,29 +45,29 @@ class _HomeScreenCards1State extends State<HomeScreenCards1> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment:CrossAxisAlignment.start,
                   children: <Widget>[
-                  Text('Games',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold
-                      )
-                      )
+                     Icon(
+                    Ionicons.logo_game_controller_b,
+                    color: colorFromHEX('#2874A6'),
+                    size: 60.0,
+                  ),
                 ],
                 ),
                     ),
                   ),
                 Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20,0,10,10),
+                  padding: const EdgeInsets.fromLTRB(20,20,10,10),
                   child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment:CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment:CrossAxisAlignment.start,
                     children: <Widget>[
-                 Icon(
-                    Ionicons.logo_game_controller_b,
-                    color: Colors.white,
-                    size: 70.0,
-                  ),
+                    Text('Games',
+                      style: TextStyle(
+                        color: colorFromHEX('#7B7D7D'),
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold
+                      )
+                    )
                   ],
                   ),
                 ),
@@ -80,11 +80,11 @@ class _HomeScreenCards1State extends State<HomeScreenCards1> {
      Expanded(child: 
         Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
-              // shadowColor: colorFromHEX('#F8C471'),
-              // elevation: 20.0,
-             color: colorFromHEX('#F39C12'),
+              shadowColor: colorFromHEX('#FDFEFE'),
+              elevation: 10.0,
+             color: colorFromHEX('#FDFEFE'),
               child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
               onTap: () {
@@ -104,29 +104,29 @@ class _HomeScreenCards1State extends State<HomeScreenCards1> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment:CrossAxisAlignment.start,
                   children: <Widget>[
-                  Text('Players',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold
-                      )
-                      )
+                  Icon(
+                    Icons.people,
+                    color: colorFromHEX('#7D3C98'),
+                    size: 60.0,
+                  ),
                 ],
                 ),
                     ),
                   ),
                 Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20,0,10,10),
+                  padding: const EdgeInsets.fromLTRB(20,20,10,10),
                   child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment:CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment:CrossAxisAlignment.start,
                     children: <Widget>[
-                 Icon(
-                    Icons.people,
-                    color: Colors.white,
-                    size: 70.0,
-                  ),
+                        Text('Players',
+                      style: TextStyle(
+                        color: colorFromHEX('#7B7D7D'),
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold
+                      )
+                    )
                   ],
                   ),
                 ),

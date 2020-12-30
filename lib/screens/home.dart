@@ -43,10 +43,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: colorFromHEX('#F2F3F4'),
+      backgroundColor: colorFromHEX('#FDFEFE'),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: colorFromHEX('#F2F3F4'),
+        backgroundColor: colorFromHEX('#FDFEFE'),
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -124,7 +125,7 @@ class _HomeState extends State<Home> {
                 )
             ),
           ),
-          Expanded(flex: 5, child:GamesList(key: gamesListKeyHome),)
+          Expanded(flex: 6, child:GamesList(key: gamesListKeyHome),)
         ],
         ),
         )

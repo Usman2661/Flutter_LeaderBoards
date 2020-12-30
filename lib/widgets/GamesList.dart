@@ -115,7 +115,7 @@ class _GamesListState extends State<GamesList> {
                     radius: 40.0,
                     child:    CircleAvatar(
                      radius: 38,
-                     backgroundColor: colorFromHEX('#D68910'),
+                     backgroundColor: colorFromHEX('#2874A6'),
                      child: Text(games[index].gameName.toString().toUpperCase().substring(0,1),
                        style: TextStyle(
                        color:Colors.white,

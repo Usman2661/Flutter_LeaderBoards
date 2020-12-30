@@ -165,7 +165,7 @@ class _PlayersGridState extends State<PlayersGrid> {
                        flex: 1,
                        child: Container(
                         decoration:  BoxDecoration(
-                            color: colorFromHEX('#7D3C98'),
+                            color: colorFromHEX('#A569BD'),
                               borderRadius: new BorderRadius.only(
                               bottomLeft:const Radius.circular(15.0),
                               bottomRight: const Radius.circular(15.0),

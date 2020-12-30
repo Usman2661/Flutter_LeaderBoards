@@ -4,6 +4,7 @@ import 'package:leaderboards/helper/colorFromHEX.dart';
 import 'package:leaderboards/screens/games.dart';
 import 'package:leaderboards/screens/home.dart';
 import 'package:leaderboards/widgets/createGamePlayerDialog.dart';
+import 'package:leaderboards/widgets/playerStats.dart';
 import 'package:leaderboards/widgets/playersGrid.dart';
 
 class Players extends StatefulWidget {
@@ -134,14 +135,14 @@ class _PlayersState extends State<Players> {
                                       Expanded(
                                         flex:1,
                                         child:  Container(
-                                      decoration:  BoxDecoration(
-                                        color: colorFromHEX('#EAEDED'),
-                                        borderRadius: new BorderRadius.only(
-                                          bottomLeft:const Radius.circular(0.0),
-                                          bottomRight: const Radius.circular(0.0),
-                                        )
-                                      ),
-                                          child: null
+                                        decoration:  BoxDecoration(
+                                          color: colorFromHEX('#EAEDED'),
+                                          borderRadius: new BorderRadius.only(
+                                            bottomLeft:const Radius.circular(0.0),
+                                            bottomRight: const Radius.circular(0.0),
+                                          )
+                                        ),
+                                          child: PlayerStats()
                                           ) 
                                           ),
                                           SizedBox(height: 10),
